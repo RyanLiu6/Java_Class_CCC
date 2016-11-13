@@ -4,6 +4,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+        /*
         int size = scan_int();
         int sum = exercise_1(size);
         System.out.println(sum);
@@ -17,6 +18,9 @@ public class Main {
         guess_game();
 
         array_flip(size);
+        */
+
+        homework();
 
         /* Homework due before 11:59PM, Saturday
          * 1.
@@ -31,6 +35,84 @@ public class Main {
          * Do not hardcode as I will be running random test cases.
          */
     }
+
+    private static void homework() {
+        // a. Ask user for input
+        int num = scan_int();
+
+        // b. Check if its odd or even
+        int mod = num % 2;
+        if (mod == 0)
+            System.out.println("Even");
+        else
+            System.out.println("Odd");
+
+        // c. Check if it's prime or not
+        boolean prime = true;
+        int divisor = 0;
+
+        // Why does i not start at 0 or 1?
+        int i = 2;
+        while (i < num && prime) {
+            if (num % i == 0) {
+                divisor = i;
+                prime = false;
+            }
+            i++;
+        }
+
+        if (prime) {
+            System.out.println(num + " is a Prime number.");
+        }
+        else {
+            System.out.println(num + " is not a Prime number.");
+            System.out.println(num + " can be divided by " + divisor);
+        }
+
+        // d. Palindrome
+        String num_str = Integer.toString(num);
+        /* Can check to see how many odds exist in String
+         * Remember, any String / Number is a Palindrome iff:
+         * It has either 0 or 1 odds: 4224 424 525 etc
+        */
+
+        // Easiest way:
+        if(num_str.equals(new StringBuilder(num_str).reverse().toString())) {
+            System.out.println(num + " is a Palindrome");
+        }
+        else
+            System.out.println(num + " is not a Palindrome");
+
+        // Manual way
+        char[] num_char = num_str.toCharArray();
+        int size = num_char.length;
+        boolean palin = true;
+        int j = 0;
+        while (j < size && palin) {
+            if (size % 2 == 0) {
+                if (num_char[j] != num_char[size-j]) {
+                    palin = false;
+                }
+            }
+            else {
+                if (j == (size/2 + 1)) {
+                    break;
+                }
+                if (num_char[j] != num_char[size-j-1]) {
+                    palin = false;
+                }
+            }
+            j++;
+        }
+
+        if (palin) {
+            System.out.println(num + " is a palindrome");
+        }
+        else {
+            System.out.println(num + " is not a palinidrome");
+        }
+    }
+
 
     /* Input: n specifying size of array
      * Return: sum of the sequence of 1, 2, 3 ... n
@@ -143,7 +225,7 @@ public class Main {
      * @return Integer between min and max, inclusive.
      * @see java.util.Random#nextInt(int)
      */
-    public static int randInt(int min, int max) {
+    private static int randInt(int min, int max) {
 
         // NOTE: This will (intentionally) not run as written so that folks
         // copy-pasting have to think about how to initialize their
@@ -155,9 +237,8 @@ public class Main {
 
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
-        int randomNum = rand.nextInt((max - min) + 1) + min;
 
-        return randomNum;
+        return rand.nextInt((max - min) + 1) + min;
     }
 
     /* Input: n
