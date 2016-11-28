@@ -22,7 +22,7 @@ public class Main {
 
         // Introducing reading file input and output
         // Reading
-        FileReader input = new FileReader("C:/Users/Ryan/Desktop/input.txt");
+        FileReader input = new FileReader("C:/Users/Ryan/Desktop/input2.txt");
         BufferedReader read = new BufferedReader(input);
 
         String str = read.readLine();
@@ -33,10 +33,33 @@ public class Main {
         }
         read.close();
 
-        for (int i = 0; i < input_list.size(); i++) {
-            System.out.print(input_list.get(i) + " ");
+        int x = 0, y = 0, z = 0;
+
+        for (String line : input_list) {
+            char[] arr = line.toCharArray();
+            if (arr[0] == '0') {
+                continue;
+            }
+            else {
+                if (arr[0] == 'x') {
+                    x = Character.getNumericValue(arr[2]);
+                }
+                if (arr[0] == 'y') {
+                    y = Character.getNumericValue(arr[2]);
+                }
+                if (arr[0] == 'z') {
+                    z = (Character.getNumericValue(arr[2]));
+                }
+            }
         }
-        System.out.println();
+
+        int result = x*y*z;
+
+        boolean test = false;
+        if (result != 0) {
+            test = true;
+        }
+        System.out.println(result);
 
         // Write
         File output = new File("C:/Users/Ryan/Desktop/output.txt");
@@ -46,10 +69,13 @@ public class Main {
         FileWriter writer = new FileWriter(output);
         BufferedWriter write = new BufferedWriter(writer);
 
-        for (int i = 0; i < input_list.size(); i++) {
-            write.write("saem" + i);
-            write.newLine();
+        if (test) {
+            write.write("x * y * z = " + result);
         }
+        else {
+            write.write("Did not specify enough numbers");
+        }
+        write.newLine();
         write.close();
     }
 
